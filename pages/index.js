@@ -1,8 +1,23 @@
+import { useState } from 'react'
 import styles from '../styles/home.module.css'
 
 export default function Home() {
+
+  const [todo, setTodo] = useState('')
+  const [click, setClick] = useState(false)
+
+  function createTodo(event) {
+    setTodo(event.target.value)
+  }
+
+  function addTodo(event) {
+    event.preventDefault()
+    setClick(true)
+    console.log(todo)
+  }
+
+
   return (
-    <div>
       <div className={styles.container}>
         <h1 className={styles.title}>Your To Do List</h1>
         <ul className={styles.list}>
@@ -11,10 +26,12 @@ export default function Home() {
           <li className={styles['list-item']}>Click the X to remove it from your list.</li>
         </ul>
         <form className={styles.form}>
-          <input type="Text" placeholder="New Item" className={styles.input} />
-          <button className={styles.button}>Add</button>
+          <input type="text" placeholder="New Item" value={todo} onChange={createTodo} className={styles.input}/>
+          <button className={styles.button} onClick={addTodo}>Add</button>
         </form>
+        <ul className={styles['to-do-list']}> 
+          <li>{ !click ? '' : todo }</li>
+        </ul>
       </div>
-    </div>
   )
 }
