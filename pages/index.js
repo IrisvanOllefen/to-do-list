@@ -1,10 +1,8 @@
-import Head from '../components/head.js'
 import styles from '../styles/home.module.css'
 
 export default function Home() {
   return (
     <div>
-      <Head/>
       <div className={styles.container}>
         <h1 className={styles.title}>Your To Do List</h1>
         <ul className={styles.list}>
