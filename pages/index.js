@@ -1,21 +1,43 @@
+
 import { useState } from 'react'
 import styles from '../styles/home.module.css'
+import Todo from '../components/Todo'
+
+function TodoForm(props) {
+  const [inputValue, setInputValue] = useState('')
+
+  function changeInputValue(event) {
+    setInputValue(event.target.value)
+  }
+
+  function submit(event) {
+    event.preventDefault()
+    props.onSubmit(inputValue)
+    setInputValue('')
+  }
+
+  return (<form className={styles.form} onSubmit={submit}>
+    <input type="text" value={inputValue} onChange={changeInputValue} placeholder="New Item" className={styles.input}/>
+    <button type="submit" className={styles.button}>Add</button>
+  </form>)
+}
+
+function TodoList(props) {
+  return <ul className={styles['to-do-list']}> 
+    {props.todos.map((todo) => {
+      return <li key={todo}>{todo}</li>
+    })}
+  </ul>
+}
 
 export default function Home() {
+  const [todos, setTodos] = useState([])
 
-  const [todo, setTodo] = useState('')
-  const [click, setClick] = useState(false)
 
-  function createTodo(event) {
-    setTodo(event.target.value)
+
+  function submit(inputValue) {
+    setTodos([...todos, inputValue])
   }
-
-  function addTodo(event) {
-    event.preventDefault()
-    setClick(true)
-    console.log(todo)
-  }
-
 
   return (
       <div className={styles.container}>
@@ -25,13 +47,14 @@ export default function Home() {
           <li className={styles['list-item']}>Click the item to mark it as complete</li>
           <li className={styles['list-item']}>Click the X to remove it from your list.</li>
         </ul>
-        <form className={styles.form}>
-          <input type="text" placeholder="New Item" value={todo} onChange={createTodo} className={styles.input}/>
-          <button className={styles.button} onClick={addTodo}>Add</button>
-        </form>
-        <ul className={styles['to-do-list']}> 
-          <li>{ !click ? '' : todo }</li>
-        </ul>
+        <TodoForm onSubmit={submit} />
+        <TodoList todos={todos} />
       </div>
   )
 }
+
+// input
+// value={todo}
+// onChange={createTodo}
+// button
+// onClick={addTodo}
