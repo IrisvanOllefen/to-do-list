@@ -1,0 +1,57 @@
+.to-do-list {
+    list-style-type: none;
+}
+
+.to-do-item-box {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem 0;
+    font-size: 21px;
+}
+
+.to-do-checkbox {
+    appearance: none;
+    position: relative;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 4px;
+    border: 1px solid rgb(185, 185, 185);
+    outline: 0;
+    cursor: pointer;
+}
+
+.to-do-checkbox:checked::before,
+.to-do-checkbox:hover::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: 6px;
+    width: 8px;
+    height: 14px;
+    border-style: solid;
+    border-color: white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.to-do-checkbox:hover {
+    color: white;
+    background-color: rgb(187, 187, 187);
+    opacity: 0.5;
+}
+
+.to-do-checkbox:checked {
+    color: white;
+    background-color: rgb(187, 187, 187);
+    opacity: 1;
+    transition: opacity 200ms;
+}
+
+.to-do-checkbox:checked ~ .to-do-label {
+    text-decoration: line-through;
+    text-decoration-color: black;
+    text-decoration-thickness: 2px;
+}
